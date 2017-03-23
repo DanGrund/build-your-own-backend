@@ -23,8 +23,8 @@ app.listen(app.get('port'), () => {
 //get all users
 app.get('/api/v1/users', (request, response) => {
   database('users').select()
-    .then((folders) => {
-      response.status(200).json(folders);
+    .then((users) => {
+      response.status(200).json(users);
     })
     .catch(function(error) {
       console.error('somethings wrong with db')
@@ -40,32 +40,31 @@ app.get('/api/v1/users/:id', (request, response) => {
 
   database('users').where('id', id).select()
   .then((user) => {
+    if(user.length<1){
+      response.status(404).send({
+        error: 'ID did not match any existing users'
+      })
+    }
     userFiles.push({user})
+  })
+  .then(()=>{
+    database('compositions').where('user_id', id).select()
+    .then((compositions) => {
+      userFiles.push({compositions})
+    })
+  })
+  .then(()=>{
+    database('sounds').where('user_id', id).select()
+    .then((sounds) => {
+      userFiles.push({sounds})
+      response.status(202).json(userFiles)
+    })
   })
   .catch((error)=>{
     response.status(404).send({
       error: 'ID did not match any existing users'
     })
   })
-  database('compositions').where('user_id', id).select()
-    .then((compositions) => {
-      userFiles.push({compositions})
-    })
-    .catch((error)=>{
-      response.status(404).send({
-        error: 'ID did not match any existing users'
-      })
-    })
-  database('sounds').where('user_id', id).select()
-    .then((sounds) => {
-      userFiles.push({sounds})
-      response.status(202).json(userFiles)
-    })
-    .catch((error)=>{
-      response.status(404).send({
-        error: 'ID did not match any existing users'
-      })
-    })
 
 })
 
@@ -94,7 +93,15 @@ app.patch('/api/v1/users/:id', (request, response) => {
 
   database('users').where('id', id).select().update({ name, email })
     .then(()=> {
-      response.status(200)
+      database('users').where('id', id).select()
+        .then((user) => {
+          if(user.length<1){
+            response.status(404).send({
+              error: 'ID did not match any existing users'
+            })
+          }
+          response.status(200).json(user);
+        })
     })
     .catch((error) => {
       response.status(422)
@@ -147,9 +154,15 @@ app.get('/api/v1/compositions', (request, response) => {
 //get one composition by ID
 app.get('/api/v1/compositions/:id', (request, response) => {
   const { id } = request.params;
+
   database('compositions').where('id', id).select()
-    .then((urlData) => {
-      response.status(202).json(urlData)
+    .then((composition) => {
+      if(composition.length<1){
+        response.status(404).send({
+          error: 'ID did not match any existing compositions'
+        })
+      }
+      response.status(202).json(composition)
     })
     .catch((error)=>{
       response.status(404).send({
@@ -183,7 +196,15 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
 
   database('compositions').where('id', id).select().update({ attributes })
     .then(()=> {
-      response.status(200)
+      database('compositions').where('id', id).select()
+        .then((composition) => {
+          if(composition.length<1){
+            response.status(404).send({
+              error: 'ID did not match any existing compositions'
+            })
+          }
+          response.status(202).json(composition)
+        })
     })
     .catch((error) => {
       response.status(404)
@@ -222,6 +243,11 @@ app.get('/api/v1/sounds/:id', (request, response) => {
   const { id } = request.params;
   database('sounds').where('id', id).select()
     .then((sound) => {
+      if(sound.length<1){
+        response.status(404).send({
+          error: 'ID did not match any existing sounds'
+        })
+      }
       response.status(202).json(sound)
     })
     .catch((error)=>{
@@ -254,10 +280,18 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
   const { id } = request.params;
   const { attributes } = request.body
 
-  database('sounds').where('id', id).select().update({ attributes })
-    .then(()=> {
-      response.status(200)
+  database('sounds').where('id', id).update({ attributes })
+  .then(()=>{    
+    database('sounds').where('id', id).select()
+    .then((sound) => {
+      if(sound.length<1){
+        response.status(404).send({
+          error: 'ID did not match any existing sounds'
+        })
+      }
+      response.status(202).json(sound)
     })
+  })
     .catch((error) => {
       response.status(404)
       console.error(error)
