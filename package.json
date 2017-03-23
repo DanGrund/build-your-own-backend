@@ -20,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/DanGrund/build-your-own-database/issues"
   },
-  "homepage": "https://github.com/DanGrund/build-your-own-database#readme"
+    "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "knex": "^0.12.8",
+    "pg": "^6.1.5"
+  }
 }
