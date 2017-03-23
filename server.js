@@ -116,11 +116,21 @@ app.delete('/api/v1/users/:id', (request, response) => {
     });
 })
 
-//get compositions
+//get compositions also, narrow down compositions by complexity
 app.get('/api/v1/compositions', (request, response) => {
+  let complexity = request.query.complexity;
+
   database('compositions').select()
-    .then((compositions) => {
-      response.status(200).json(compositions);
+    .then((compositions) => {    
+      if(complexity){
+        let complex = compositions.filter((obj)=>{
+          let attributes = JSON.parse(obj.attributes)
+          return attributes.length == complexity;
+        })
+        response.status(200).json(complex)
+      } else {
+        response.status(200).json(compositions);
+      }
     })
     .catch(function(error) {
       response.status(404)
@@ -300,9 +310,6 @@ app.get('/api/v1/users/:id/creations', (request, response) => {
   })
 
 })
-
-//narrow down compositions by complexity
-
 
 //display something at the root
 app.get('/', function (request, response) {
