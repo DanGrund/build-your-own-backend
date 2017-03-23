@@ -4,7 +4,7 @@
   "description": "CRUD server practice",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/mocha ./test/**.js || true"
   },
   "repository": {
     "type": "git",
@@ -21,13 +21,19 @@
     "url": "https://github.com/DanGrund/build-your-own-database/issues"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.2.0",
     "nodemon": "^1.11.0"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "cors": "^2.8.1",
     "express": "^4.15.2",
     "knex": "^0.12.8",
+    "mocha": "^3.2.0",
     "pg": "^6.1.5"
   }
 }

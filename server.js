@@ -281,7 +281,7 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
   const { attributes } = request.body
 
   database('sounds').where('id', id).update({ attributes })
-  .then(()=>{    
+  .then(()=>{
     database('sounds').where('id', id).select()
     .then((sound) => {
       if(sound.length<1){
@@ -354,3 +354,5 @@ app.get('/api/v1/users/:id/creations', (request, response) => {
 app.get('/', function (request, response) {
   response.send('try out some real endpoints!')
 })
+
+module.exports = app;
