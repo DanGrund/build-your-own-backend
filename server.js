@@ -20,7 +20,6 @@ app.listen(app.get('port'), () => {
   console.log(`We running on ${app.get('port')}.`)
 })
 
-//USERS have ID (autoIncrementing), name, email, deleted attributes
 //get all users
 app.get('/api/v1/users', (request, response) => {
   database('users').select()
@@ -91,12 +90,9 @@ app.patch('/api/v1/users/:id', (request, response) => {
   const { id } = request.params;
   const { name, email } = request.body
 
-  database('users').where('id', id).select()
-    .then((user)=> {
-      database('users').where('id', id).select().update({ name, email })
-        .then(()=> {
-          res.status(200)
-        })
+  database('users').where('id', id).select().update({ name, email })
+    .then(()=> {
+      res.status(200)
     })
     .catch((error) => {
       console.error(error)
@@ -104,8 +100,19 @@ app.patch('/api/v1/users/:id', (request, response) => {
 })
 
 //delete a user
+app.delete('/api/v1/users/:id', (request, response) => {
+  const { id } = request.params;
 
-//COMPOSITIONS have ID(autoIncrementing), attributes, user_id, deleted attributes
+  database('compositions').where('user_id', id).select().update({ deleted: true })
+  database('users').where('id', id).select().update({ deleted: true })
+    .then(()=> {
+      res.status(200)
+    })
+    .catch((error) => {
+      console.error(error)
+    });
+})
+
 //get compositions
 app.get('/api/v1/compositions', (request, response) => {
   database('compositions').select()
@@ -154,12 +161,9 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
   const { id } = request.params;
   const { attributes } = request.body
 
-  database('compositions').where('id', id).select()
-    .then((user)=> {
-      database('compositions').where('id', id).select().update({ attributes })
-        .then(()=> {
-          res.status(200)
-        })
+  database('compositions').where('id', id).select().update({ attributes })
+    .then(()=> {
+      res.status(200)
     })
     .catch((error) => {
       console.error(error)
@@ -167,8 +171,18 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
 })
 
 //delete a composition
+app.delete('/api/v1/compositions/:id', (request, response) => {
+  const { id } = request.params;
 
-//SOUNDS have ID(autoIncrementing), attributes, user_id, deleted attributes
+  database('compositions').where('id', id).select().update({ deleted: true })
+    .then(()=> {
+      res.status(200)
+    })
+    .catch((error) => {
+      console.error(error)
+    });
+})
+
 //get sounds
 app.get('/api/v1/sounds', (request, response) => {
   database('sounds').select()
@@ -217,12 +231,9 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
   const { id } = request.params;
   const { attributes } = request.body
 
-  database('sounds').where('id', id).select()
-    .then((user)=> {
-      database('sounds').where('id', id).select().update({ attributes })
-        .then(()=> {
-          res.status(200)
-        })
+  database('sounds').where('id', id).select().update({ attributes })
+    .then(()=> {
+      res.status(200)
     })
     .catch((error) => {
       console.error(error)
@@ -230,6 +241,17 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
 })
 
 //delete a sound
+app.delete('/api/v1/sounds/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('sounds').where('id', id).select().update({ deleted: true })
+    .then(()=> {
+      res.status(200)
+    })
+    .catch((error) => {
+      console.error(error)
+    });
+})
 
 //display something at the root
 app.get('/', function (request, response) {
