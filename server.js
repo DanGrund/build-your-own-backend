@@ -86,7 +86,22 @@ app.post('/api/v1/users', (request, response) => {
   })
 })
 
-//put a user
+//patch a user
+app.patch('/api/v1/users/:id', (request, response) => {
+  const { id } = request.params;
+  const { name, email } = request.body
+
+  database('users').where('id', id).select()
+    .then((user)=> {
+      database('users').where('id', id).select().update({ name, email })
+        .then(()=> {
+          res.status(200)
+        })
+    })
+    .catch((error) => {
+      console.error(error)
+    });
+})
 
 //delete a user
 
@@ -134,7 +149,22 @@ app.post('/api/v1/compositions', (request, response) => {
   })
 })
 
-//put a composition
+//patch a composition
+app.patch('/api/v1/compositions/:id', (request, response) => {
+  const { id } = request.params;
+  const { attributes } = request.body
+
+  database('compositions').where('id', id).select()
+    .then((user)=> {
+      database('compositions').where('id', id).select().update({ attributes })
+        .then(()=> {
+          res.status(200)
+        })
+    })
+    .catch((error) => {
+      console.error(error)
+    });
+})
 
 //delete a composition
 
@@ -182,7 +212,22 @@ app.post('/api/v1/sounds', (request, response) => {
   })
 })
 
-//put a sound
+//patch a sound
+app.patch('/api/v1/sounds/:id', (request, response) => {
+  const { id } = request.params;
+  const { attributes } = request.body
+
+  database('sounds').where('id', id).select()
+    .then((user)=> {
+      database('sounds').where('id', id).select().update({ attributes })
+        .then(()=> {
+          res.status(200)
+        })
+    })
+    .catch((error) => {
+      console.error(error)
+    });
+})
 
 //delete a sound
 
