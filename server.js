@@ -29,6 +29,7 @@ app.get('/api/v1/users', (request, response) => {
     .catch(function(error) {
       console.error('somethings wrong with db')
       console.log(error)
+      response.status(404)
     });
 })
 
@@ -42,7 +43,7 @@ app.get('/api/v1/users/:id', (request, response) => {
     userFiles.push({user})
   })
   .catch((error)=>{
-    response.status(422).send({
+    response.status(404).send({
       error: 'ID did not match any existing users'
     })
   })
@@ -51,7 +52,7 @@ app.get('/api/v1/users/:id', (request, response) => {
       userFiles.push({compositions})
     })
     .catch((error)=>{
-      response.status(422).send({
+      response.status(404).send({
         error: 'ID did not match any existing users'
       })
     })
@@ -61,7 +62,7 @@ app.get('/api/v1/users/:id', (request, response) => {
       response.status(202).json(userFiles)
     })
     .catch((error)=>{
-      response.status(422).send({
+      response.status(404).send({
         error: 'ID did not match any existing users'
       })
     })
@@ -80,6 +81,7 @@ app.post('/api/v1/users', (request, response) => {
         response.status(200).json(users);
       })
       .catch((error) => {
+        response.status(422)
         console.error(error)
       });
   })
@@ -95,6 +97,7 @@ app.patch('/api/v1/users/:id', (request, response) => {
       res.status(200)
     })
     .catch((error) => {
+      response.status(422)
       console.error(error)
     });
 })
@@ -120,6 +123,7 @@ app.get('/api/v1/compositions', (request, response) => {
       response.status(200).json(compositions);
     })
     .catch(function(error) {
+      response.status(404)
       console.error('somethings wrong with db')
       console.log(error)
     });
@@ -133,7 +137,7 @@ app.get('/api/v1/compositions/:id', (request, response) => {
       response.status(202).json(urlData)
     })
     .catch((error)=>{
-      response.status(422).send({
+      response.status(404).send({
         error: 'ID did not match any existing compositions'
       })
     })
@@ -151,6 +155,7 @@ app.post('/api/v1/compositions', (request, response) => {
         response.status(200).json(compositions);
       })
       .catch((error) => {
+        response.status(422)
         console.error(error)
       });
   })
@@ -166,6 +171,7 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
       res.status(200)
     })
     .catch((error) => {
+      response.status(404)
       console.error(error)
     });
 })
@@ -190,6 +196,7 @@ app.get('/api/v1/sounds', (request, response) => {
       response.status(200).json(sounds);
     })
     .catch(function(error) {
+      response.status(404)
       console.error('somethings wrong with db')
       console.log(error)
     });
@@ -203,7 +210,7 @@ app.get('/api/v1/sounds/:id', (request, response) => {
       response.status(202).json(urlData)
     })
     .catch((error)=>{
-      response.status(422).send({
+      response.status(404).send({
         error: 'ID did not match any existing sounds'
       })
     })
@@ -221,6 +228,7 @@ app.post('/api/v1/sounds', (request, response) => {
         response.status(200).json(sounds);
       })
       .catch((error) => {
+        response.status(404)
         console.error(error)
       });
   })
@@ -236,6 +244,7 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
       res.status(200)
     })
     .catch((error) => {
+      response.status(404)
       console.error(error)
     });
 })
@@ -252,6 +261,48 @@ app.delete('/api/v1/sounds/:id', (request, response) => {
       console.error(error)
     });
 })
+
+//get request that return total number of a users composititons and sounds
+app.get('/api/v1/users/:id/creations', (request, response) => {
+  const { id } = request.params;
+  let totalCompositions;
+  let totalSounds;
+  let userName;
+
+
+  database('compositions').where('user_id', id).select()
+  .then((compositions) => {
+    totalCompositions = compositions.length
+  })
+  .catch((error)=>{
+    response.status(404).send({
+      error: 'ID did not match any existing users'
+    })
+  })
+  database('sounds').where('user_id', id).select()
+  .then((sounds) => {
+    totalSounds = sounds.length
+  })
+  .catch((error)=>{
+    response.status(404).send({
+      error: 'ID did not match any existing users'
+    })
+  })
+  database('users').where('id', id).select()
+  .then((user) => {
+    userName = user[0].name;
+    response.send(`${userName} has created ${totalCompositions} compositions and ${totalSounds} sounds!`)
+  })
+  .catch((error)=>{
+    response.status(404).send({
+      error: 'ID did not match any existing users'
+    })
+  })
+
+})
+
+//narrow down compositions by complexity
+
 
 //display something at the root
 app.get('/', function (request, response) {
