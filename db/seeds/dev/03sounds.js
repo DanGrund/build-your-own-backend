@@ -2,654 +2,106 @@ exports.seed = function(knex, Promise) {
   return knex('sounds').del()
   .then(() => {
     return Promise.all([
-      knex('sounds').insert({
-        "id": 1,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 15,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 2,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 22,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 3,
-        "attributes": [
-          {
-          }
-        ],
-        "user_id": 18,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 4,
-        "attributes": [
-          {
-          }
-        ],
-        "user_id": 20,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 5,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 17,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 6,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 17,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 7,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 6,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 8,
-        "attributes": [
-          {
-          }
-        ],
-        "user_id": 14,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 9,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 3,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 10,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 6,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 11,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 16,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 12,
-        "attributes": [
-          {
-          }
-        ],
-        "user_id": 26,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 13,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 16,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 14,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 22,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 15,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 9,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 16,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 9,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 17,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 12,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 18,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 6,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 19,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 18,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 20,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 8,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 21,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 29,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 22,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 3,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 23,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 10,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 24,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 29,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 25,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 25,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 26,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 21,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 27,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 4,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 28,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 13,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 29,
-        "attributes": [
-          {
-          }
-        ],
-        "user_id": 21,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 30,
-        "attributes": [
-          {
-          }
-        ],
-        "user_id": 13,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 31,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 21,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 32,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 9,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 33,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 20,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 34,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 26,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 35,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 12,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 36,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 23,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 37,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 16,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 38,
-        "attributes": [
-          {
-          }
-        ],
-        "user_id": 1,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 39,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 10,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 40,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 21,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 41,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 19,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 42,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 21,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 43,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 20,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 44,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 22,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 45,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 9,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 46,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 13,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 47,
-        "attributes": [
-          {
-          },
-          {
-          },
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 28,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 48,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 4,
-        "deleted": false
-      }),
-      knex('sounds').insert({
-        "id": 49,
-        "attributes": [
-          {
-          }
-        ],
-        "user_id": 1,
-        "deleted": true
-      }),
-      knex('sounds').insert({
-        "id": 50,
-        "attributes": [
-          {
-          },
-          {
-          }
-        ],
-        "user_id": 18,
-        "deleted": false
-      })
+      knex('sounds').insert({"id":1,"attributes":[{}],"user_id":6,"deleted":true}),
+      knex('sounds').insert({"id":2,"attributes":[{},{}],"user_id":28,"deleted":true}),
+      knex('sounds').insert({"id":3,"attributes":[{},{}],"user_id":29,"deleted":true}),
+      knex('sounds').insert({"id":4,"attributes":[{},{}],"user_id":22,"deleted":false}),
+      knex('sounds').insert({"id":5,"attributes":[{}],"user_id":21,"deleted":false}),
+      knex('sounds').insert({"id":6,"attributes":[{},{}],"user_id":22,"deleted":true}),
+      knex('sounds').insert({"id":7,"attributes":[{},{}],"user_id":23,"deleted":true}),
+      knex('sounds').insert({"id":8,"attributes":[{}],"user_id":1,"deleted":true}),
+      knex('sounds').insert({"id":9,"attributes":[{}],"user_id":21,"deleted":true}),
+      knex('sounds').insert({"id":10,"attributes":[{},{}],"user_id":25,"deleted":true}),
+      knex('sounds').insert({"id":11,"attributes":[{},{}],"user_id":15,"deleted":true}),
+      knex('sounds').insert({"id":12,"attributes":[{},{}],"user_id":21,"deleted":false}),
+      knex('sounds').insert({"id":13,"attributes":[{}],"user_id":26,"deleted":false}),
+      knex('sounds').insert({"id":14,"attributes":[{}],"user_id":18,"deleted":false}),
+      knex('sounds').insert({"id":15,"attributes":[{},{}],"user_id":20,"deleted":false}),
+      knex('sounds').insert({"id":16,"attributes":[{},{}],"user_id":23,"deleted":false}),
+      knex('sounds').insert({"id":17,"attributes":[{},{}],"user_id":18,"deleted":true}),
+      knex('sounds').insert({"id":18,"attributes":[{}],"user_id":9,"deleted":false}),
+      knex('sounds').insert({"id":19,"attributes":[{}],"user_id":10,"deleted":false}),
+      knex('sounds').insert({"id":20,"attributes":[{},{}],"user_id":14,"deleted":false}),
+      knex('sounds').insert({"id":21,"attributes":[{}],"user_id":25,"deleted":true}),
+      knex('sounds').insert({"id":22,"attributes":[{},{}],"user_id":18,"deleted":false}),
+      knex('sounds').insert({"id":23,"attributes":[{}],"user_id":17,"deleted":true}),
+      knex('sounds').insert({"id":24,"attributes":[{},{}],"user_id":29,"deleted":true}),
+      knex('sounds').insert({"id":25,"attributes":[{}],"user_id":4,"deleted":true}),
+      knex('sounds').insert({"id":26,"attributes":[{},{}],"user_id":17,"deleted":false}),
+      knex('sounds').insert({"id":27,"attributes":[{}],"user_id":16,"deleted":false}),
+      knex('sounds').insert({"id":28,"attributes":[{}],"user_id":15,"deleted":false}),
+      knex('sounds').insert({"id":29,"attributes":[{}],"user_id":27,"deleted":false}),
+      knex('sounds').insert({"id":30,"attributes":[{}],"user_id":29,"deleted":true}),
+      knex('sounds').insert({"id":31,"attributes":[{},{}],"user_id":16,"deleted":false}),
+      knex('sounds').insert({"id":32,"attributes":[{},{}],"user_id":23,"deleted":false}),
+      knex('sounds').insert({"id":33,"attributes":[{},{}],"user_id":2,"deleted":true}),
+      knex('sounds').insert({"id":34,"attributes":[{},{}],"user_id":26,"deleted":true}),
+      knex('sounds').insert({"id":35,"attributes":[{}],"user_id":11,"deleted":false}),
+      knex('sounds').insert({"id":36,"attributes":[{}],"user_id":22,"deleted":false}),
+      knex('sounds').insert({"id":37,"attributes":[{}],"user_id":14,"deleted":true}),
+      knex('sounds').insert({"id":38,"attributes":[{}],"user_id":20,"deleted":true}),
+      knex('sounds').insert({"id":39,"attributes":[{}],"user_id":27,"deleted":false}),
+      knex('sounds').insert({"id":40,"attributes":[{},{}],"user_id":26,"deleted":true}),
+      knex('sounds').insert({"id":41,"attributes":[{}],"user_id":7,"deleted":true}),
+      knex('sounds').insert({"id":42,"attributes":[{},{}],"user_id":10,"deleted":true}),
+      knex('sounds').insert({"id":43,"attributes":[{},{}],"user_id":26,"deleted":true}),
+      knex('sounds').insert({"id":44,"attributes":[{},{}],"user_id":22,"deleted":true}),
+      knex('sounds').insert({"id":45,"attributes":[{}],"user_id":18,"deleted":false}),
+      knex('sounds').insert({"id":46,"attributes":[{}],"user_id":1,"deleted":false}),
+      knex('sounds').insert({"id":47,"attributes":[{}],"user_id":30,"deleted":true}),
+      knex('sounds').insert({"id":48,"attributes":[{}],"user_id":30,"deleted":false}),
+      knex('sounds').insert({"id":49,"attributes":[{},{}],"user_id":6,"deleted":true}),
+      knex('sounds').insert({"id":50,"attributes":[{}],"user_id":23,"deleted":true}),
+      knex('sounds').insert({"id":51,"attributes":[{}],"user_id":20,"deleted":false}),
+      knex('sounds').insert({"id":52,"attributes":[{},{}],"user_id":7,"deleted":false}),
+      knex('sounds').insert({"id":53,"attributes":[{}],"user_id":29,"deleted":true}),
+      knex('sounds').insert({"id":54,"attributes":[{},{}],"user_id":14,"deleted":false}),
+      knex('sounds').insert({"id":55,"attributes":[{},{}],"user_id":24,"deleted":true}),
+      knex('sounds').insert({"id":56,"attributes":[{}],"user_id":26,"deleted":false}),
+      knex('sounds').insert({"id":57,"attributes":[{}],"user_id":6,"deleted":false}),
+      knex('sounds').insert({"id":58,"attributes":[{}],"user_id":24,"deleted":false}),
+      knex('sounds').insert({"id":59,"attributes":[{},{}],"user_id":26,"deleted":false}),
+      knex('sounds').insert({"id":60,"attributes":[{},{}],"user_id":25,"deleted":true}),
+      knex('sounds').insert({"id":61,"attributes":[{},{}],"user_id":11,"deleted":false}),
+      knex('sounds').insert({"id":62,"attributes":[{},{}],"user_id":5,"deleted":false}),
+      knex('sounds').insert({"id":63,"attributes":[{}],"user_id":4,"deleted":true}),
+      knex('sounds').insert({"id":64,"attributes":[{}],"user_id":8,"deleted":true}),
+      knex('sounds').insert({"id":65,"attributes":[{},{}],"user_id":25,"deleted":false}),
+      knex('sounds').insert({"id":66,"attributes":[{},{}],"user_id":20,"deleted":false}),
+      knex('sounds').insert({"id":67,"attributes":[{}],"user_id":25,"deleted":false}),
+      knex('sounds').insert({"id":68,"attributes":[{},{}],"user_id":12,"deleted":false}),
+      knex('sounds').insert({"id":69,"attributes":[{}],"user_id":30,"deleted":true}),
+      knex('sounds').insert({"id":70,"attributes":[{}],"user_id":28,"deleted":true}),
+      knex('sounds').insert({"id":71,"attributes":[{},{}],"user_id":3,"deleted":true}),
+      knex('sounds').insert({"id":72,"attributes":[{}],"user_id":16,"deleted":true}),
+      knex('sounds').insert({"id":73,"attributes":[{}],"user_id":13,"deleted":true}),
+      knex('sounds').insert({"id":74,"attributes":[{}],"user_id":23,"deleted":false}),
+      knex('sounds').insert({"id":75,"attributes":[{}],"user_id":18,"deleted":false}),
+      knex('sounds').insert({"id":76,"attributes":[{},{}],"user_id":30,"deleted":true}),
+      knex('sounds').insert({"id":77,"attributes":[{},{}],"user_id":21,"deleted":false}),
+      knex('sounds').insert({"id":78,"attributes":[{},{}],"user_id":26,"deleted":true}),
+      knex('sounds').insert({"id":79,"attributes":[{},{}],"user_id":19,"deleted":false}),
+      knex('sounds').insert({"id":80,"attributes":[{},{}],"user_id":13,"deleted":false}),
+      knex('sounds').insert({"id":81,"attributes":[{},{}],"user_id":11,"deleted":false}),
+      knex('sounds').insert({"id":82,"attributes":[{}],"user_id":30,"deleted":false}),
+      knex('sounds').insert({"id":83,"attributes":[{},{}],"user_id":28,"deleted":false}),
+      knex('sounds').insert({"id":84,"attributes":[{},{}],"user_id":20,"deleted":false}),
+      knex('sounds').insert({"id":85,"attributes":[{}],"user_id":23,"deleted":true}),
+      knex('sounds').insert({"id":86,"attributes":[{}],"user_id":13,"deleted":false}),
+      knex('sounds').insert({"id":87,"attributes":[{}],"user_id":10,"deleted":false}),
+      knex('sounds').insert({"id":88,"attributes":[{}],"user_id":30,"deleted":false}),
+      knex('sounds').insert({"id":89,"attributes":[{}],"user_id":12,"deleted":false}),
+      knex('sounds').insert({"id":90,"attributes":[{},{}],"user_id":22,"deleted":true}),
+      knex('sounds').insert({"id":91,"attributes":[{}],"user_id":18,"deleted":false}),
+      knex('sounds').insert({"id":92,"attributes":[{}],"user_id":26,"deleted":false}),
+      knex('sounds').insert({"id":93,"attributes":[{},{}],"user_id":23,"deleted":true}),
+      knex('sounds').insert({"id":94,"attributes":[{},{}],"user_id":29,"deleted":false}),
+      knex('sounds').insert({"id":95,"attributes":[{},{}],"user_id":1,"deleted":true}),
+      knex('sounds').insert({"id":96,"attributes":[{}],"user_id":21,"deleted":false}),
+      knex('sounds').insert({"id":97,"attributes":[{}],"user_id":27,"deleted":false}),
+      knex('sounds').insert({"id":98,"attributes":[{},{}],"user_id":29,"deleted":false}),
+      knex('sounds').insert({"id":99,"attributes":[{},{}],"user_id":13,"deleted":false}),
+      knex('sounds').insert({"id":100,"attributes":[{}],"user_id":7,"deleted":false})
     ]);
   });
 };
