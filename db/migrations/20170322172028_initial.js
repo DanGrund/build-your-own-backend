@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
 
         knex.schema.createTable('compositions', function(table){
             //composition ID
-            table.string('id').primary();
+            table.increments('id').primary();
             //object of attributes
             table.string('attributes');
             //creator of composition
@@ -28,7 +28,7 @@ exports.up = function(knex, Promise) {
 
         knex.schema.createTable('sounds', function(table){
             //composition ID
-            table.string('id').primary();
+            table.increments('id').primary();
             //object of attributes
             table.string('attributes');
             //creator of composition
