@@ -94,7 +94,7 @@ app.patch('/api/v1/users/:id', (request, response) => {
 
   database('users').where('id', id).select().update({ name, email })
     .then(()=> {
-      res.status(200)
+      response.status(200)
     })
     .catch((error) => {
       response.status(422)
@@ -106,14 +106,19 @@ app.patch('/api/v1/users/:id', (request, response) => {
 app.delete('/api/v1/users/:id', (request, response) => {
   const { id } = request.params;
 
-  database('compositions').where('user_id', id).select().update({ deleted: true })
-  database('users').where('id', id).select().update({ deleted: true })
-    .then(()=> {
-      res.status(200)
+  database('sounds').where('user_id',id).update({ user_id: null })
+  .then(()=>{
+    database('compositions').where('user_id',id).delete()
+    .then(()=>{
+      database('users').where('id', id).delete()
+      .then(()=> {
+        response.status(200)
+      })
     })
-    .catch((error) => {
-      console.error(error)
-    });
+  })
+  .catch((error) => {
+    console.error(error)
+  });
 })
 
 //get compositions also, narrow down compositions by complexity
@@ -121,7 +126,7 @@ app.get('/api/v1/compositions', (request, response) => {
   let complexity = request.query.complexity;
 
   database('compositions').select()
-    .then((compositions) => {    
+    .then((compositions) => {
       if(complexity){
         let complex = compositions.filter((obj)=>{
           let attributes = JSON.parse(obj.attributes)
@@ -178,7 +183,7 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
 
   database('compositions').where('id', id).select().update({ attributes })
     .then(()=> {
-      res.status(200)
+      response.status(200)
     })
     .catch((error) => {
       response.status(404)
@@ -190,9 +195,9 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
 app.delete('/api/v1/compositions/:id', (request, response) => {
   const { id } = request.params;
 
-  database('compositions').where('id', id).select().update({ deleted: true })
-    .then(()=> {
-      res.status(200)
+  database('compositions').where('id', id).select().delete()
+    .then((data)=> {
+      response.status(200).json(data)
     })
     .catch((error) => {
       console.error(error)
@@ -216,8 +221,8 @@ app.get('/api/v1/sounds', (request, response) => {
 app.get('/api/v1/sounds/:id', (request, response) => {
   const { id } = request.params;
   database('sounds').where('id', id).select()
-    .then((urlData) => {
-      response.status(202).json(urlData)
+    .then((sound) => {
+      response.status(202).json(sound)
     })
     .catch((error)=>{
       response.status(404).send({
@@ -251,7 +256,7 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
 
   database('sounds').where('id', id).select().update({ attributes })
     .then(()=> {
-      res.status(200)
+      response.status(200)
     })
     .catch((error) => {
       response.status(404)
@@ -263,9 +268,9 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
 app.delete('/api/v1/sounds/:id', (request, response) => {
   const { id } = request.params;
 
-  database('sounds').where('id', id).select().update({ deleted: true })
+  database('sounds').where('id', id).select().delete()
     .then(()=> {
-      res.status(200)
+      response.status(200)
     })
     .catch((error) => {
       console.error(error)
