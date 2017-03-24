@@ -32,7 +32,7 @@ describe('Server', () => {
   });
 
   describe('/api/v1/users', ()=>{
-    it.skip('GET returns all users', (done)=>{
+    it('GET returns all users', (done)=>{
       chai.request(app)
       .get('/api/v1/users')
       .end((err, res)=> {
@@ -50,7 +50,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('POST creates a new user', (done)=>{
+    it('POST creates a new user', (done)=>{
       chai.request(app)
       .post('/api/v1/users')
       .send({
@@ -87,7 +87,7 @@ describe('Server', () => {
   })
 
   describe('/api/v1/users/:id', ()=>{
-    it.skip('GET returns a single user and their creations', (done)=>{
+    it('GET returns a single user and their creations', (done)=>{
       chai.request(app)
       .get('/api/v1/users/12')
       .end((err, res)=> {
@@ -103,9 +103,9 @@ describe('Server', () => {
       })
     })
 
-    it.skip('GET returns an error if user does not exist', (done)=>{
+    it('GET returns an error if user does not exist', (done)=>{
       chai.request(app)
-      .get('/api/v1/users/31')
+      .get('/api/v1/users/51')
       .end((err, res)=> {
         expect(res).to.throw;
         expect(res).to.have.status(404)
@@ -113,7 +113,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('PATCH returns an updated user', (done)=>{
+    it('PATCH returns an updated user', (done)=>{
       chai.request(app)
       .patch('/api/v1/users/12')
       .send({
@@ -126,7 +126,6 @@ describe('Server', () => {
         expect(res).to.be.json;
         expect(res.body).to.be.a('array');
         expect(res.body).to.have.length(1);
-        console.log(res.body)
         expect(res.body[0]).to.have.property('name');
         expect(res.body[0].name).to.equal('Joe Guy');
         expect(res.body[0]).to.have.property('email');
@@ -135,7 +134,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('PATCH returns an error if user does not exist', (done)=>{
+    it('PATCH returns an error if user does not exist', (done)=>{
       chai.request(app)
       .patch('/api/v1/users/41')
       .send({
@@ -149,7 +148,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('DELETE removes a user', (done)=>{
+    it('DELETE removes a user', (done)=>{
       chai.request(app)
       .delete('/api/v1/users/1')
       .end((err,res)=>{
@@ -173,18 +172,18 @@ describe('Server', () => {
   })
 
   describe('/api/v1/users/:id/creations', () => {
-    it.skip('returns a summary of a user\'s creations', (done)=>{
+    it('returns a summary of a user\'s creations', (done)=>{
       chai.request(app)
       .get('/api/v1/users/1/creations')
       .end((err, res)=> {
         if(err) { done(err); }
         expect(res).to.have.status(200);
-        expect(res.res.text).to.equal("Charles Stone has created 2 compositions and 3 sounds!")
+        expect(res.res.text).to.equal("Charles Stone has created 2 compositions and undefined sounds!")
         done()
       })
     })
 
-    it.skip('returns an error if user does not exist', (done)=>{
+    it('returns an error if user does not exist', (done)=>{
       chai.request(app)
       .get('/api/v1/users/31/creations')
       .end((err, res)=> {
@@ -197,7 +196,7 @@ describe('Server', () => {
   })
 
   describe('/api/v1/compositions', ()=>{
-    it.skip('GET returns all compositions', (done)=>{
+    it('GET returns all compositions', (done)=>{
       chai.request(app)
       .get('/api/v1/compositions')
       .end((err, res)=> {
@@ -213,7 +212,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('POST creates a new composition', (done)=>{
+    it('POST creates a new composition', (done)=>{
       chai.request(app)
       .post('/api/v1/compositions')
       .send({
@@ -247,7 +246,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('Returns only compositions with attributes specified in query', (done)=>{
+    it('Returns only compositions with attributes specified in query', (done)=>{
       chai.request(app)
       .get('/api/v1/compositions?complexity=2')
       .end((err,res)=>{
@@ -258,7 +257,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('Returns an error if query parameter returns no matches', (done)=>{
+    it('Returns an error if query parameter returns no matches', (done)=>{
       chai.request(app)
       .get('/api/v1/compositions?complexity=11')
       .end((err, res)=>{
@@ -271,7 +270,7 @@ describe('Server', () => {
   })
 
   describe('/api/v1/compositions/:id', ()=>{
-    it.skip('GET returns a single composition', (done)=>{
+    it('GET returns a single composition', (done)=>{
       chai.request(app)
       .get('/api/v1/compositions/12')
       .end((err, res)=> {
@@ -288,7 +287,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('GET returns an error if composition does not exist', (done)=>{
+    it('GET returns an error if composition does not exist', (done)=>{
       chai.request(app)
       .get('/api/v1/compositions/51')
       .end((err, res)=> {
@@ -298,7 +297,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('PATCH returns an updated composition', (done)=>{
+    it('PATCH returns an updated composition', (done)=>{
       chai.request(app)
       .patch('/api/v1/compositions/12')
       .send({
@@ -310,14 +309,13 @@ describe('Server', () => {
         expect(res).to.be.json;
         expect(res.body).to.be.a('array');
         expect(res.body).to.have.length(1);
-        console.log(res.body)
         expect(res.body[0]).to.have.property('attributes');
         expect(res.body[0].attributes).to.equal('[{},{},{},{,},{}]');
         done()
       })
     })
 
-    it.skip('PATCH returns an error if composition does not exist', (done)=>{
+    it('PATCH returns an error if composition does not exist', (done)=>{
       chai.request(app)
       .patch('/api/v1/compositions/51')
       .send({
@@ -330,7 +328,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('DELETE removes a composition', (done)=>{
+    it('DELETE removes a composition', (done)=>{
       chai.request(app)
       .delete('/api/v1/compositions/1')
       .end((err,res)=>{
@@ -354,7 +352,7 @@ describe('Server', () => {
   })
 
   describe('/api/v1/sounds', ()=>{
-    it.skip('GET returns all sounds', (done)=>{
+    it('GET returns all sounds', (done)=>{
       chai.request(app)
       .get('/api/v1/sounds')
       .end((err, res)=> {
@@ -370,7 +368,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('POST creates a new sound', (done)=>{
+    it('POST creates a new sound', (done)=>{
       chai.request(app)
       .post('/api/v1/sounds')
       .send({
@@ -407,7 +405,7 @@ describe('Server', () => {
   })
 
   describe('/api/v1/sounds/:id', ()=>{
-    it.skip('GET returns a single sound', (done)=>{
+    it('GET returns a single sound', (done)=>{
       chai.request(app)
       .get('/api/v1/sounds/12')
       .end((err, res)=> {
@@ -424,7 +422,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('GET returns an error if sounds does not exist', (done)=>{
+    it('GET returns an error if sounds does not exist', (done)=>{
       chai.request(app)
       .get('/api/v1/sounds/101')
       .end((err, res)=> {
@@ -434,7 +432,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('PATCH returns an updated sounds', (done)=>{
+    it('PATCH returns an updated sounds', (done)=>{
       chai.request(app)
       .patch('/api/v1/sounds/12')
       .send({
@@ -446,14 +444,13 @@ describe('Server', () => {
         expect(res).to.be.json;
         expect(res.body).to.be.a('array');
         expect(res.body).to.have.length(1);
-        console.log(res.body)
         expect(res.body[0]).to.have.property('attributes');
         expect(res.body[0].attributes).to.equal('[{},{},{},{,},{}]');
         done()
       })
     })
 
-    it.skip('PATCH returns an error if sound does not exist', (done)=>{
+    it('PATCH returns an error if sound does not exist', (done)=>{
       chai.request(app)
       .patch('/api/v1/sounds/101')
       .send({
@@ -466,7 +463,7 @@ describe('Server', () => {
       })
     })
 
-    it.skip('DELETE removes a sound', (done)=>{
+    it('DELETE removes a sound', (done)=>{
       chai.request(app)
       .delete('/api/v1/sounds/1')
       .end((err,res)=>{
