@@ -1,20 +1,20 @@
-#BYOB
+# BYOB
 
-##A database for the REST of us
+## A database for the REST of us
 
-###lol get it festivus jokes about RESTful APIs?
+### lol get it festivus jokes about RESTful APIs?
 
-####fuck I need to go to sleep, this coding delerious thing..
+#### fuck I need to go to sleep, this coding delerious thing..
 
-<!-- #####¯\_(ツ)_/¯ -->
+##### ¯\_(ツ)_/¯
 
-##Overview
+## Overview
 Anyway to business. BYOB is a simple server-db template. The server is built on node-express, and connects to a postgres db via knex. Endpoints are tested using Mocha Chai, because TDD is the bees knees.  We have three tables, one for users, one for compositions, and one for sounds. The idea is to implement this in my next class project, the browser-based DAW. users can create & share sounds, and then create compositions with said sounds and those of other users. anyhow, irrelelvant currently: project forthcomhing. To the task at hand..
 
-##End Points, We've got Endpoints
+## End Points, We've got Endpoints
 you can check out the following endpoints on [heroku](https://byob-dan1.herokuapp.com/)
 *****
-###Users
+### Users
 
 <code>GET</code>/api/v1/users
 
@@ -24,7 +24,7 @@ you can check out the following endpoints on [heroku](https://byob-dan1.herokuap
 
 * pass an object with a users name and their email in the body to insert a new user into the user table
 
-###Users/:id
+### Users/:id
 
 <code>GET</code>/api/v1/users/:id
 
@@ -44,7 +44,7 @@ you can check out the following endpoints on [heroku](https://byob-dan1.herokuap
 
 ***
 
-###Compositions
+### Compositions
 
 <code>GET</code>/api/v1/compositions
 
@@ -59,7 +59,7 @@ you can check out the following endpoints on [heroku](https://byob-dan1.herokuap
 
 * for when you want to build your next masterpiece and share it with the world
 
-###Compositions/:id
+### Compositions/:id
 
 <code>GET</code>/api/v1/compositions/:id
 
@@ -75,7 +75,7 @@ you can check out the following endpoints on [heroku](https://byob-dan1.herokuap
 
 ***
 
-###Sounds
+### Sounds
 
 <code>GET</code>/api/v1/sounds
 
@@ -85,7 +85,7 @@ you can check out the following endpoints on [heroku](https://byob-dan1.herokuap
 
 * you spent 2.5 hrs layering subtle choppy saw waves with just a hint of reverb over three different kick drum samples and then transposing the whole deal up two octaves to get that perfect punchy clap. it's time to share it with the world.
 
-###Sounds/:id
+### Sounds/:id
 
 <code>GET</code>/api/v1/sounds/:id
 
@@ -101,7 +101,7 @@ you can check out the following endpoints on [heroku](https://byob-dan1.herokuap
 
 ***
 
-##Testing, Testing, 1, 2, Test, 1, 2, Test
+## Testing, Testing, 1, 2, Test, 1, 2, Test
 
 All paths are tested except sad paths for POST & DELETE
 
