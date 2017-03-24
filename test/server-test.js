@@ -163,7 +163,7 @@ describe('Server', () => {
       })
     })
 
-    it('!!WIP!! DELETE returns an error if', (done)=>{
+    it('DELETE returns an error if a user does not exist', (done)=>{
       chai.request(app)
       .delete('/api/v1/users/51')
       .end((err, res)=>{
@@ -504,15 +504,3 @@ describe('Server', () => {
 
 
 
-// describe('GET /', () => {
-//   it.skip('should send back a message', (done) => {
-//     chai.request(app)
-//     .get('/')
-//     .end((err, res) => {
-//       if(err) { done(err); }
-//       expect(res).to.have.status(200);
-//       expect(res).to.be.html;
-//       done();
-//     })
-//   })
-// })
