@@ -105,7 +105,6 @@ you can check out the following endpoints on [heroku](https://byob-dan1.herokuap
 
 All paths are tested except sad paths for POST & DELETE
 
-![passing-tests-screenshot](http://i.imgur.com/ACVVV9o.png)
-
+![passing-tests-screenshot](http://i.imgur.com/c7lZroW.png)
 
 *cannot confirm or deny

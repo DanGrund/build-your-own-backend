@@ -74,12 +74,16 @@ describe('Server', () => {
       })
     })
 
-    it.skip('!!WIP!! POST returns an error if', (done)=>{
+    it('POST returns an error if not all attributes are present', (done)=>{
       chai.request(app)
-      //send bad post request
+      .post('/api/v1/users')
+      .send({
+        name: 'Joe Guy',
+        email : null
+      })
       .end((err, res)=>{
         expect(res).to.throw;
-        expect(res).to.have.status(404)
+        expect(res).to.have.status(422)
         done()
       })
     })
@@ -159,9 +163,9 @@ describe('Server', () => {
       })
     })
 
-    it.skip('!!WIP!! DELETE returns an error if', (done)=>{
+    it('!!WIP!! DELETE returns an error if', (done)=>{
       chai.request(app)
-      //send bad delete request
+      .delete('/api/v1/users/51')
       .end((err, res)=>{
         expect(res).to.throw;
         expect(res).to.have.status(404)
@@ -236,12 +240,16 @@ describe('Server', () => {
       })
     })
 
-    it.skip('!!WIP!! POST returns an error if', (done)=>{
+    it('POST returns an error if not all attributes are present', (done)=>{
       chai.request(app)
-      //send bad post request
+      .post('/api/v1/compositions')
+      .send({
+        name: 'Joe Guy',
+        email : 'james@franco.com'
+      })
       .end((err, res)=>{
         expect(res).to.throw;
-        expect(res).to.have.status(404)
+        expect(res).to.have.status(422)
         done()
       })
     })
@@ -339,9 +347,9 @@ describe('Server', () => {
       })
     })
 
-    it.skip('!!WIP!! DELETE returns an error if', (done)=>{
+    it('DELETE returns an error if composition does not exist', (done)=>{
       chai.request(app)
-      //send bad delete request
+      .delete('/api/v1/compositions/55')
       .end((err, res)=>{
         expect(res).to.throw;
         expect(res).to.have.status(404)
@@ -392,12 +400,16 @@ describe('Server', () => {
       })
     })
 
-    it.skip('!!WIP!! POST returns an error if', (done)=>{
+    it('POST returns an error if not all attributes are present', (done)=>{
       chai.request(app)
-      //send bad post request
+      .post('/api/v1/sounds')
+      .send({
+        name: 'Joe Guy',
+        email : 'james@franco.com'
+      })
       .end((err, res)=>{
         expect(res).to.throw;
-        expect(res).to.have.status(404)
+        expect(res).to.have.status(422)
         done()
       })
     })
@@ -474,9 +486,9 @@ describe('Server', () => {
       })
     })
 
-    it.skip('!!WIP!! DELETE returns an error if', (done)=>{
+    it('DELETE returns an error if sound does not exist', (done)=>{
       chai.request(app)
-      //send bad delete request
+      .delete('/api/v1/sounds/121')
       .end((err, res)=>{
         expect(res).to.throw;
         expect(res).to.have.status(404)
