@@ -75,17 +75,21 @@ app.post('/api/v1/users', (request, response) => {
   const { name, email } = request.body
   const newUser = { name, email, deleted:false }
 
-  database('users').insert(newUser)
-  .then(()=> {
-    database('users').select()
-      .then((users) => {
-        response.status(200).json(users);
-      })
-      .catch((error) => {
-        response.status(422)
-        console.error(error)
-      });
-  })
+  if(!name || !email){
+    response.status(422).json("[]")
+  } else {
+    database('users').insert(newUser)
+    .then(()=> {
+      database('users').select()
+        .then((users) => {
+          response.status(200).json(users);
+        })
+        .catch((error) => {
+          response.status(422)
+          console.error(error)
+        });
+    })
+  }
 })
 
 //patch a user
@@ -116,22 +120,31 @@ app.patch('/api/v1/users/:id', (request, response) => {
 app.delete('/api/v1/users/:id', (request, response) => {
   const { id } = request.params;
 
-  database('sounds').where('user_id',id).update({ user_id: null })
-  .then(()=>{
-    database('compositions').where('user_id',id).delete()
-    .then(()=>{
-      database('users').where('id', id).delete()
-      .then(()=> {
-        database('users').select()
-          .then((users) => {
-            response.status(200).json(users);
-          })
+  database('compositions').where('id', id).select()
+  .then((composition)=>{
+    if(composition.length<1){
+      response.status(404).send({
+        error: 'ID did not match any existing sounds'
       })
-    })
+    } else {
+      database('sounds').where('user_id',id).update({ user_id: null })
+      .then(()=>{
+        database('compositions').where('user_id',id).delete()
+        .then(()=>{
+          database('users').where('id', id).delete()
+          .then(()=> {
+            database('users').select()
+            .then((users) => {
+              response.status(200).json(users);
+            })
+          })
+        })
+      })
+      .catch((error) => {
+        console.error(error)
+      });
+    }
   })
-  .catch((error) => {
-    console.error(error)
-  });
 })
 
 //get request that return total number of a users composititons and sounds
@@ -228,9 +241,12 @@ app.post('/api/v1/compositions', (request, response) => {
   const { attributes, user_id } = request.body
   const newComposition = { attributes, user_id, deleted:false }
 
-  database('compositions').insert(newComposition)
-  .then(()=> {
-    database('compositions').select()
+  if(!attributes || !user_id){
+    response.status(422).json("[]")
+  } else {
+    database('compositions').insert(newComposition)
+    .then(()=> {
+      database('compositions').select()
       .then((compositions) => {
         response.status(200).json(compositions);
       })
@@ -238,7 +254,8 @@ app.post('/api/v1/compositions', (request, response) => {
         response.status(422)
         console.error(error)
       });
-  })
+    })
+  }
 })
 
 //patch a composition
@@ -269,16 +286,26 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
 app.delete('/api/v1/compositions/:id', (request, response) => {
   const { id } = request.params;
 
-  database('compositions').where('id', id).delete()
-  .then(()=>{
-    database('compositions').select()
-    .then((compositions)=> {
-      response.status(200).json(compositions)
-    })
-    .catch((error) => {
-      console.error(error)
-    });
+  database('compositions').where('id', id).select()
+  .then((composition)=>{
+    if(composition.length<1){
+      response.status(404).send({
+        error: 'ID did not match any existing sounds'
+      })
+    } else {
+      database('compositions').where('id', id).delete()
+      .then(()=>{
+        database('compositions').select()
+        .then((compositions)=> {
+          response.status(200).json(compositions)
+        })
+        .catch((error) => {
+          console.error(error)
+        });
+      })
+    }
   })
+
 })
 
 //get sounds
@@ -319,17 +346,21 @@ app.post('/api/v1/sounds', (request, response) => {
   const { attributes, user_id } = request.body
   const newSound = { attributes, user_id, deleted:false }
 
-  database('sounds').insert(newSound)
-  .then(()=> {
-    database('sounds').select()
-      .then((sounds) => {
-        response.status(200).json(sounds);
-      })
-      .catch((error) => {
-        response.status(404)
-        console.error(error)
-      });
-  })
+  if(!attributes || !user_id){
+    response.status(422).json("[]")
+  } else {
+    database('sounds').insert(newSound)
+    .then(()=> {
+      database('sounds').select()
+        .then((sounds) => {
+          response.status(200).json(sounds);
+        })
+        .catch((error) => {
+          response.status(404)
+          console.error(error)
+        });
+    })
+  }
 })
 
 //patch a sound
@@ -360,16 +391,25 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
 app.delete('/api/v1/sounds/:id', (request, response) => {
   const { id } = request.params;
 
-  database('sounds').where('id', id).delete()
-    .then(()=> {
-      database('sounds').select()
-      .then((data)=>{
-        response.status(200).json(data)
+  database('sounds').where('id', id).select()
+  .then((sound)=>{
+    if(sound.length<1){
+      response.status(404).send({
+        error: 'ID did not match any existing sounds'
       })
-    })
-    .catch((error) => {
-      console.error(error)
-    });
+    } else {
+      database('sounds').where('id', id).delete()
+        .then(()=> {
+          database('sounds').select()
+          .then((data)=>{
+            response.status(200).json(data)
+          })
+        })
+        .catch((error) => {
+          console.error(error)
+        });
+    }
+  })
 })
 
 //display something at the root
