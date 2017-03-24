@@ -18,7 +18,7 @@ you can check out the following endpoints on [heroku](https://byob-dan1.herokuap
 
 <code>GET</code>/api/v1/users
 
-* this little return you a JSON array of all the users
+* this little guy'll return you a JSON array of all the users
 
 <code>POST</code>/api/v1/users
 
