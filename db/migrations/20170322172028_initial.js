@@ -9,7 +9,7 @@ exports.up = function(knex, Promise) {
             table.string('email');
             //deleted
             table.boolean('deleted');
-            table.timestamps();
+            table.timestamps(true,true);
         }),
 
         knex.schema.createTable('compositions', function(table){
@@ -23,7 +23,7 @@ exports.up = function(knex, Promise) {
                  .inTable('users');
             //deleted
             table.boolean('deleted');
-            table.timestamps();
+            table.timestamps(true,true);
         }),
 
         knex.schema.createTable('sounds', function(table){
@@ -37,7 +37,7 @@ exports.up = function(knex, Promise) {
                  .inTable('users');
             //deleted
             table.boolean('deleted');
-            table.timestamps();
+            table.timestamps(true,true);
         })
 
 

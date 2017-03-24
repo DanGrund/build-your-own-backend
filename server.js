@@ -20,6 +20,7 @@ app.listen(app.get('port'), () => {
   console.log(`We running on ${app.get('port')}.`)
 })
 
+
 //get all users
 app.get('/api/v1/users', (request, response) => {
   database('users').select()
@@ -40,11 +41,6 @@ app.get('/api/v1/users/:id', (request, response) => {
 
   database('users').where('id', id).select()
   .then((user) => {
-    if(user.length<1){
-      response.status(404).send({
-        error: 'ID did not match any existing users'
-      })
-    }
     userFiles.push({user})
   })
   .then(()=>{
@@ -57,12 +53,18 @@ app.get('/api/v1/users/:id', (request, response) => {
     database('sounds').where('user_id', id).select()
     .then((sounds) => {
       userFiles.push({sounds})
-      response.status(202).json(userFiles)
+      if(userFiles[0].user.length<1){
+        response.status(404).send({
+          error: 'ID did not match any existing users'
+        })
+      } else {
+        response.status(202).json(userFiles)
+      }
     })
   })
   .catch((error)=>{
     response.status(404).send({
-      error: 'ID did not match any existing users'
+      error
     })
   })
 
@@ -99,8 +101,9 @@ app.patch('/api/v1/users/:id', (request, response) => {
             response.status(404).send({
               error: 'ID did not match any existing users'
             })
+          } else {
+            response.status(200).json(user);
           }
-          response.status(200).json(user);
         })
     })
     .catch((error) => {
@@ -119,13 +122,55 @@ app.delete('/api/v1/users/:id', (request, response) => {
     .then(()=>{
       database('users').where('id', id).delete()
       .then(()=> {
-        response.status(200)
+        database('users').select()
+          .then((users) => {
+            response.status(200).json(users);
+          })
       })
     })
   })
   .catch((error) => {
     console.error(error)
   });
+})
+
+//get request that return total number of a users composititons and sounds
+app.get('/api/v1/users/:id/creations', (request, response) => {
+  const { id } = request.params;
+  let totalCompositions;
+  let totalSounds;
+  let userName;
+
+
+  database('compositions').where('user_id', id).select()
+  .then((compositions) => {
+    totalCompositions = compositions.length;
+  })
+  .then(()=>{
+    database('sounds').where('user_id', id).select()
+    .then((sounds) => {
+      totalSounds = sounds.length
+    })
+  })
+  .then(()=>{
+    database('users').where('id', id).select()
+    .then((user) => {
+      if(user.length<1){
+        response.status(404).send({
+          error: 'ID did not match any existing users'
+        })
+      } else {
+        userName = user[0].name;
+        response.send(`${userName} has created ${totalCompositions} compositions and ${totalSounds} sounds!`)
+      }
+    })
+  })
+  .catch((error)=>{
+    response.status(404).send({
+      error: 'ID did not match any existing users'
+    })
+  })
+
 })
 
 //get compositions also, narrow down compositions by complexity
@@ -139,7 +184,13 @@ app.get('/api/v1/compositions', (request, response) => {
           let attributes = JSON.parse(obj.attributes)
           return attributes.length == complexity;
         })
-        response.status(200).json(complex)
+        if(complex.length<1){
+          response.status(404).send({
+            error: 'query did not return any matches'
+          })
+        } else {
+          response.status(200).json(complex)
+        }
       } else {
         response.status(200).json(compositions);
       }
@@ -161,8 +212,9 @@ app.get('/api/v1/compositions/:id', (request, response) => {
         response.status(404).send({
           error: 'ID did not match any existing compositions'
         })
+      } else {
+        response.status(202).json(composition)
       }
-      response.status(202).json(composition)
     })
     .catch((error)=>{
       response.status(404).send({
@@ -194,7 +246,7 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
   const { id } = request.params;
   const { attributes } = request.body
 
-  database('compositions').where('id', id).select().update({ attributes })
+  database('compositions').where('id', id).update({ attributes })
     .then(()=> {
       database('compositions').where('id', id).select()
         .then((composition) => {
@@ -202,8 +254,9 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
             response.status(404).send({
               error: 'ID did not match any existing compositions'
             })
+          } else {
+            response.status(202).json(composition)
           }
-          response.status(202).json(composition)
         })
     })
     .catch((error) => {
@@ -216,13 +269,16 @@ app.patch('/api/v1/compositions/:id', (request, response) => {
 app.delete('/api/v1/compositions/:id', (request, response) => {
   const { id } = request.params;
 
-  database('compositions').where('id', id).select().delete()
-    .then((data)=> {
-      response.status(200).json(data)
+  database('compositions').where('id', id).delete()
+  .then(()=>{
+    database('compositions').select()
+    .then((compositions)=> {
+      response.status(200).json(compositions)
     })
     .catch((error) => {
       console.error(error)
     });
+  })
 })
 
 //get sounds
@@ -247,8 +303,9 @@ app.get('/api/v1/sounds/:id', (request, response) => {
         response.status(404).send({
           error: 'ID did not match any existing sounds'
         })
+      } else {
+        response.status(202).json(sound)
       }
-      response.status(202).json(sound)
     })
     .catch((error)=>{
       response.status(404).send({
@@ -288,8 +345,9 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
         response.status(404).send({
           error: 'ID did not match any existing sounds'
         })
+      } else {
+        response.status(202).json(sound)
       }
-      response.status(202).json(sound)
     })
   })
     .catch((error) => {
@@ -302,52 +360,16 @@ app.patch('/api/v1/sounds/:id', (request, response) => {
 app.delete('/api/v1/sounds/:id', (request, response) => {
   const { id } = request.params;
 
-  database('sounds').where('id', id).select().delete()
+  database('sounds').where('id', id).delete()
     .then(()=> {
-      response.status(200)
+      database('sounds').select()
+      .then((data)=>{
+        response.status(200).json(data)
+      })
     })
     .catch((error) => {
       console.error(error)
     });
-})
-
-//get request that return total number of a users composititons and sounds
-app.get('/api/v1/users/:id/creations', (request, response) => {
-  const { id } = request.params;
-  let totalCompositions;
-  let totalSounds;
-  let userName;
-
-
-  database('compositions').where('user_id', id).select()
-  .then((compositions) => {
-    totalCompositions = compositions.length
-  })
-  .catch((error)=>{
-    response.status(404).send({
-      error: 'ID did not match any existing users'
-    })
-  })
-  database('sounds').where('user_id', id).select()
-  .then((sounds) => {
-    totalSounds = sounds.length
-  })
-  .catch((error)=>{
-    response.status(404).send({
-      error: 'ID did not match any existing users'
-    })
-  })
-  database('users').where('id', id).select()
-  .then((user) => {
-    userName = user[0].name;
-    response.send(`${userName} has created ${totalCompositions} compositions and ${totalSounds} sounds!`)
-  })
-  .catch((error)=>{
-    response.status(404).send({
-      error: 'ID did not match any existing users'
-    })
-  })
-
 })
 
 //display something at the root
